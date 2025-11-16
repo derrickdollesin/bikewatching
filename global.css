@@ -1,0 +1,101 @@
+body {
+  font: 100%/1.5 system-ui, sans-serif;
+  display: flex;
+  flex-flow: column;
+  max-width: 80em;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 1em;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  position: relative;
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+#map svg {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* shared color logic for circles *and* legend items */
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* circles: still use the color for fill */
+#map svg circle {
+  fill: var(--color);
+  fill-opacity: 0.6;
+  stroke: white;
+  stroke-width: 1px;
+  pointer-events: auto;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.time-filter {
+  margin-left: auto; /* push slider to the right */
+  font-size: 0.9rem;
+}
+
+.time-filter time,
+.time-filter em {
+  display: block; /* so text doesn’t shove slider around */
+}
+
+#any-time {
+  color: #666;
+  font-style: italic;
+}
+
+#time-slider {
+  width: 300px;   /* increase to whatever size you want */
+}
+
+.legend {
+  display: flex;          /* put items in a row */
+  gap: 1px;               /* tiny gap between blocks */
+  margin-block: 1rem;     /* space above/below legend */
+  width: 100%;
+}
+
+.legend > div {
+  flex: 1;                /* equal width blocks */
+  padding: 0.25rem 0.75rem;
+  background: var(--color);
+  color: white;           /* good contrast on steelblue/orange */
+  text-align: center;     /* you can change per design */
+  font-size: 0.9rem;
+}
